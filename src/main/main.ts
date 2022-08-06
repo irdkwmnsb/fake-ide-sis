@@ -45,9 +45,11 @@ ipcMain.on('read-config', async (event) => {
       const taskVariants: ITaskVariants = {};
       const files = fs.readdirSync(taskDir);
       for (const fileName of files) {
-        taskVariants[fileName] = {
-          text: 'aboba',
-        };
+        if (fs.lstatSync(fileName).isFile()) {
+          taskVariants[fileName] = {
+            text: 'aboba',
+          };
+        }
       }
       constructedJson.tasks[taskName] = taskVariants;
     }

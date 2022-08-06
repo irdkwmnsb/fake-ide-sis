@@ -1,6 +1,6 @@
 import { FC, useContext } from 'react';
 import { FilesContext } from './Context';
-import IFile from '../Types';
+import { IFile } from '../Types';
 import './Selector.css';
 
 interface FileProps {
@@ -17,7 +17,7 @@ const File = ({ file, onSelect }: FileProps) => {
 };
 
 interface SelectorProps {
-  onOpen: (file: IFile) => unknown;
+  onOpen: (index: number) => unknown;
   onCreateNew: () => unknown;
 }
 
