@@ -9,7 +9,7 @@ interface EditorProps {
   onCheat: () => void;
 }
 
-const CHEAT_STR = 'GDZIOI2281337';
+const CHEAT_STR = 'iddqd';
 const CHEAT_ARRAY = [...CHEAT_STR];
 const IGNORED_KEYS = new Set([
   'Shift',
