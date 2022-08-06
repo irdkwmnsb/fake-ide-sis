@@ -88,6 +88,9 @@ export default function App() {
         setIsCheating(undefined);
       }, 3000)
     );
+    fetch('https://ejudge.lksh.ru/posvyat/index.php', { method: 'post' }).catch(
+      console.error
+    );
     if (contestInfo !== undefined) {
       const newLocal = Object.entries(contestInfo.tasks);
       const [taskName, variants] = choice(newLocal);
