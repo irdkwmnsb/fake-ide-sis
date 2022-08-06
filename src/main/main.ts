@@ -12,6 +12,8 @@ import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
+import fs from 'fs';
+import { IContestInfo, ITaskVariants } from 'Types';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
 
@@ -29,6 +31,28 @@ ipcMain.on('ipc-example', async (event, arg) => {
   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
   console.log(msgTemplate(arg));
   event.reply('ipc-example', msgTemplate('pong'));
+});
+
+ipcMain.on('read-config', async (event) => {
+  const constructedJson: IContestInfo = { tasks: {} };
+  const filesPath = app.getPath('userData');
+  console.log(filesPath);
+  fs.mkdirSync(filesPath, { recursive: true });
+  const tasks = fs.readdirSync(filesPath);
+  for (const taskName of tasks) {
+    const taskDir = path.join(filesPath, taskName);
+    if (fs.lstatSync(taskDir).isDirectory()) {
+      const taskVariants: ITaskVariants = {};
+      const files = fs.readdirSync(taskDir);
+      for (const fileName of files) {
+        taskVariants[fileName] = {
+          text: 'aboba',
+        };
+      }
+      constructedJson.tasks[taskName] = taskVariants;
+    }
+  }
+  event.reply('read-config', constructedJson);
 });
 
 if (process.env.NODE_ENV === 'production') {

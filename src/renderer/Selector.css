@@ -1,0 +1,7 @@
+button {
+  display: block;
+}
+.selector {
+  display: flex;
+  flex-direction: column;
+}

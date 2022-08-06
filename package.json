@@ -183,8 +183,8 @@
     "webpack-merge": "^5.8.0"
   },
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.erb.ElectronReact",
+    "productName": "Optical workshop cipher",
+    "appId": "org.sis.fakeide",
     "asar": true,
     "asarUnpack": "**\\*.{node,dll}",
     "files": [
