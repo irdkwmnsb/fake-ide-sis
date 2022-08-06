@@ -35,7 +35,7 @@ ipcMain.on('ipc-example', async (event, arg) => {
 
 ipcMain.on('read-config', async (event) => {
   const constructedJson: IContestInfo = { tasks: {} };
-  const filesPath = app.getPath('userData');
+  const filesPath = path.join(app.getPath('appData'), 'fake-ide');
   console.log(filesPath);
   fs.mkdirSync(filesPath, { recursive: true });
   const tasks = fs.readdirSync(filesPath);
@@ -45,9 +45,10 @@ ipcMain.on('read-config', async (event) => {
       const taskVariants: ITaskVariants = {};
       const files = fs.readdirSync(taskDir);
       for (const fileName of files) {
-        if (fs.lstatSync(fileName).isFile()) {
+        const filePath = path.join(taskDir, fileName);
+        if (fs.lstatSync(filePath).isFile()) {
           taskVariants[fileName] = {
-            text: 'aboba',
+            text: fs.readFileSync(filePath, { encoding: 'utf-8' }),
           };
         }
       }

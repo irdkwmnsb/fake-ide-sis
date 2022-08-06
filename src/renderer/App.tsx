@@ -34,7 +34,11 @@ export default function App() {
       const newLocal = Object.entries(contestInfo.tasks);
       const [taskName, variants] = choice(newLocal);
       const items = Object.entries(variants);
-      const [variantName, variant] = choice(items);
+      let variantName: string;
+      let variant;
+      do {
+        [variantName, variant] = choice(items);
+      } while (variantName === 'cheat');
       setFiles((curFiles) => ({
         ...curFiles,
         files: [
